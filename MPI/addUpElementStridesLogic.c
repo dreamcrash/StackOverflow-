@@ -2,11 +2,8 @@
 #include <stdlib.h>
 #include <mpi.h>
 
-
-// https://stackoverflow.com/questions/65678445/failed-to-parallelly-add-up-elements-in-the-array-with-several-strides-mpi
-
 /** 
-Original Question
+Original Question : https://stackoverflow.com/questions/65678445/failed-to-parallelly-add-up-elements-in-the-array-with-several-strides-mpi
 
 I am trying to parallelly add up the elements from the array. I got an example for the algorithm that I follow to add up the elements with different strides in the array:
 
@@ -27,13 +24,6 @@ The processor each has a temp value which means the changed array value and MPI_
 However, my result does not seem to work as I want. I would appreciate if anyone can tell me what I did wrong in my codes.
 
 **/
-
-
-
-
-**/
-
-
 void printArray(int *array, int size){
      int rank;
      MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -44,17 +34,14 @@ void printArray(int *array, int size){
     }
 }
 
-
 int main(int argc, char **argv)
 {
-	int totalarray = 16;
         int rank, size;
         MPI_Init(&argc, &argv);
         MPI_Comm_rank(MPI_COMM_WORLD, &rank);
         MPI_Comm_size(MPI_COMM_WORLD, &size);
 	int input[16] = {3,10,1,22,8,28,4,53,4,4,0,4,0,0,0,57};	
-
-	printArray(input, totalarray);
+	int totalarray = sizeof(input)/sizeof(input[0]);
 
 	int size_per_process = totalarray/size;
 	int begin = rank * size_per_process;
