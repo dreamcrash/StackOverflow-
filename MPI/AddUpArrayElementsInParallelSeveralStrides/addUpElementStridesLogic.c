@@ -48,11 +48,10 @@ int main(int argc, char **argv)
 	int end =  (rank + 1) * size_per_process;
 	int split_size = totalarray/2;
 	while(split_size > 1){
-	   int shift =  (split_size/2) - 1;
-	   for(int dest = split_size + shift; dest < end; dest += split_size){
-	       if(begin <= dest) 
-          	   input[dest] += input[dest - shift -1];
-	   }
+	   int shift = (split_size/2) - 1;
+	   int dest = ((begin == 0) ? split_size : (split_size/begin) * split_size) + shift; 
+	   for(; dest < end; dest += split_size)
+              input[dest] += input[dest - shift -1];
 	   MPI_Allgather(MPI_IN_PLACE, size_per_process, MPI_INT, input, size_per_process, MPI_INT, MPI_COMM_WORLD);
 	   split_size = split_size/2;
 	}
