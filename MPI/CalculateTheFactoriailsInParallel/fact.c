@@ -1,10 +1,10 @@
 /***
-	ORIGINAL QUESTION: https://stackoverflow.com/questions/65585379/how-to-send-an-integer-array-using-mpi-and-calculate-factorial-of-them/
+	ORIGINAL QUESTION: 
+https://stackoverflow.com/questions/65585379/how-to-send-an-integer-array-using-mpi-and-calculate-factorial-of-them/
 
-Consider that process 0 have an array of integer numbers where we should compute the factorial of all the elements in the array. Modify the program in order to send the array to process 1 that computes all the factorials and return the results to process 0.
-
-
-
+Consider that process 0 have an array of integer numbers where we should compute the factorial 
+of all the elements in the array. Modify the program in order to send the array to process 1 
+that computes all the factorials and return the results to process 0.
 **/
 
 
