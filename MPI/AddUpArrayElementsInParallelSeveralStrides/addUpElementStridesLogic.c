@@ -5,7 +5,8 @@
 /** 
 Original Question : https://stackoverflow.com/questions/65678445/failed-to-parallelly-add-up-elements-in-the-array-with-several-strides-mpi
 
-I am trying to parallelly add up the elements from the array. I got an example for the algorithm that I follow to add up the elements with different strides in the array:
+I am trying to parallelly add up the elements from the array. 
+I got an example for the algorithm that I follow to add up the elements with different strides in the array:
 
 input = [3,10,1,22,8,28,4,53,4,4,0,4,0,0,0,57]
 

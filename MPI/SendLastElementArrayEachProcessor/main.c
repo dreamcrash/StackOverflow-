@@ -6,7 +6,8 @@
 
 Original Question : https://stackoverflow.com/questions/65672424/how-to-send-the-last-element-array-of-each-processor-in-mpi
 
-I am struggled to write the code to perform like the following example similar to the Up Phase part in prefix scan and not want to use the function MPI_Scan:
+I am struggled to write the code to perform like the following example similar to the 
+Up Phase part in prefix scan and not want to use the function MPI_Scan:
 
 WholeArray[16] = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
 
