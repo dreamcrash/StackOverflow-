@@ -13,11 +13,8 @@ The problem is one of the processes receives two elements but the other one rece
 Here is what I have:
 
 **/
-
-
-
-
-#include <stdio.h> 
+#include <stdio.h>
+#include <stdlib.h>
 #include <mpi.h>
 
 int main(int argc,char *argv[]){
@@ -26,31 +23,27 @@ int main(int argc,char *argv[]){
     int world_size;
     MPI_Comm_rank(MPI_COMM_WORLD,&world_rank);
     MPI_Comm_size(MPI_COMM_WORLD,&world_size);
-	
-    int number1[2];           
-    int number[4];
-    if(world_rank == 0){
-      number[0]=1;
-      number[1]=3;
-      number[2]=5;
-      number[3]=9;               
-    }
 
-    //All processes
-    MPI_Scatter(number, 2, MPI_INT, &number1, 2, MPI_INT, 0, MPI_COMM_WORLD);
-    printf("I'm process %d , I received the array : ",world_rank);
-	   
-    int sub_sum = 0;
-    for(int i=0 ; i<2 ; i++){
-        printf("%d ",number1[i]);
-        sub_sum = sub_sum + number1[i];
+    int size = (argc > 1) ? atoi(argv[1]) : 4;
+    int *number = NULL;
+    if(world_rank == 0){
+      number = malloc(sizeof(int) * size);
+      for(int i = 0; i < size; i++)
+         number[i] = i;
     }
-    printf("\n");        
+    int size_per_process = size / world_size;
+    int local_number[size_per_process];
+    MPI_Scatter(number, size_per_process, MPI_INT, local_number, size_per_process, MPI_INT, 0, MPI_COMM_WORLD);  
+    int sub_sum = 0;
+    for(int i=0 ; i < size_per_process ; i++){
+        sub_sum += local_number[i];
+    }
     int sum = 0;
-    MPI_Reduce(&sub_sum, &sum, 1, MPI_INT, MPI_SUM,0,MPI_COMM_WORLD);            
-    if(world_rank == 0)
-      printf("\nthe sum of array is: %d\n",sum);
-            
+    MPI_Reduce(&sub_sum, &sum, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);            
+    if(world_rank == 0){
+      int formula = (size * (size - 1)) / 2;
+      printf("\nthe sum of array is: %d == %d\n", sum, formula);
+    }
 
     MPI_Finalize();
     return 0;
