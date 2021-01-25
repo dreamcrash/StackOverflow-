@@ -19,7 +19,7 @@ The actual code involves sending and comparing several hundred values on upto se
 #include <mpi.h>
 
 typedef struct MyStruct {
-    long b;
+    int b;
     int a;
 } S;
 
@@ -36,10 +36,10 @@ int main(int argc,char *argv[]){
     local.a = world_rank;
     local.b = world_size - world_rank;
 
-    MPI_Allreduce(&local, &global, 1, MPI_LONG_INT, MPI_MAXLOC, MPI_COMM_WORLD);
+    MPI_Allreduce(&local, &global, 1, MPI_2INT, MPI_MAXLOC, MPI_COMM_WORLD);
           
     if(world_rank == 0){
-      printf("%ld %d\n", global.b, global.a);
+      printf("%d %d\n", global.b, global.a);
     }
 
     MPI_Finalize();
