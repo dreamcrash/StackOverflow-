@@ -1,0 +1,26 @@
+/**
+Original Question : https://stackoverflow.com/questions/66065755
+
+Keycloak CLI: Creating an Identity Provider Mapper
+
+**/
+
+
+#!bin/bash
+REALM_NAME=$1
+MAPPER_NAME=$2
+IDP_NAME=$3
+IDP_ALIAS=$4
+ROLE_NAME=$5
+if [[ $# -ne 5 ]]; then
+	echo "Wrong number of parameters"
+	echo "Usage: $0 <realm_name> <mapper_name> <idp_name> <idp_alias> <role_name>"
+	exit 1
+fi
+
+./kcadm.sh create identity-provider/instances/$IDP_NAME/mappers \ 
+          -r $REALM_NAME \
+          -s name=$MAPPER_NAME \
+          -s identityProviderAlias=$IDP_ALIAS \ 
+          -s identityProviderMapper=oidc-hardcoded-role-idp-mapper \
+          -s config.role=$ROLE_NAME
