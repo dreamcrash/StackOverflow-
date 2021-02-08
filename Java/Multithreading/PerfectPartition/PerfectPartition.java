@@ -77,6 +77,7 @@
 package Multithreading_git;
 
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
@@ -100,15 +101,16 @@ class ThreadWork implements Runnable{
         return (a == 0) ? b : gcd(b % a, a);
     }
 
-    static long lcm(long a, long b) {
-        return (a / gcd(a, b)) * b;
+    static long lcm(long a, long b, long gcd) {
+        return (a / gcd) * b;
     }
 
     @Override
     public void run() {
-        for (int x = 2 + threadID; !found.get() && x < (n + 2) / 2; x += total_threads) {
-            for (int y = 2; y < (n + 2) / 2; y++) {
-                long z = lcm(x, y) + gcd(x, y);
+        for (int x = 2; !found.get() && x < (n + 2) / 2; x ++) {
+            for (int y = 2 + threadID; !found.get() && y < (n + 2) / 2; y += total_threads) {
+                long result = gcd(x, y);
+                long z = lcm(x, y, result) + result;
                 if (z == n) {
                     synchronized (found) {
                         if(!found.get()) {
@@ -133,6 +135,7 @@ class PerfectPartition {
         long[] rest = new long[2];
         AtomicBoolean found = new AtomicBoolean();
 
+        double startTime = System.nanoTime();
         Thread[] threads = new Thread[total_threads];
         for(int i = 0; i < total_threads; i++){
             ThreadWork task = new ThreadWork(rest, found, i, total_threads, n);
@@ -144,6 +147,11 @@ class PerfectPartition {
             threads[i].join();
         }
 
+        double estimatedTime = System.nanoTime() - startTime;
         System.out.println(rest[0] + " " + rest[1]);
+
+
+        double elapsedTimeInSecond = estimatedTime / 1_000_000_000;
+        System.out.println(elapsedTimeInSecond + " seconds");
     }
 }
