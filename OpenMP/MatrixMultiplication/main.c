@@ -46,9 +46,9 @@ int main(int argc, char *argv[]) {
    	int N  = (argc > 1) ? atoi(argv[1]) : 10;
 	int print = (argc > 2) ? atoi(argv[2]) : 0;
         int numThreads = (argc > 3) ? atoi(argv[3]) : 2;
-	int *A = malloc(N * N * sizeof(double));
-	int *B = malloc(N * N * sizeof(double));
-	int *C = malloc(N * N * sizeof(double));
+	int *A = malloc(N * N * sizeof(int));
+	int *B = malloc(N * N * sizeof(int));
+	int *C = malloc(N * N * sizeof(int));
 
         omp_set_dynamic(0);              /** Explicitly disable dynamic teams **/
         omp_set_num_threads(numThreads); /** Use N threads for all parallel regions **/
