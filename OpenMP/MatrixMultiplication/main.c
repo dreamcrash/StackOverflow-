@@ -16,7 +16,7 @@ Will the array C be accurate in both the versions regardless of the size of the 
 #include <stdio.h>
 #include <omp.h>
 
-void fillupRandomly (int *m, int dimension, int min, int max){
+void fillupRandomly (int *m, int dimension){
     for (int i = 0; i < dimension; i++)
         for (int j = 0; j < dimension; j++)
             m[dimension*i+j] = (((float)rand())/RAND_MAX*99+1);
@@ -61,8 +61,8 @@ int main(int argc, char *argv[]) {
         	if(C)   free(C);
         	return (EXIT_FAILURE);
     	}
-	fillupRandomly (A, N, 0, 5);
-        fillupRandomly (B, N, 0, 5);
+	fillupRandomly (A, N);
+        fillupRandomly (B, N);
 
 	double begin = omp_get_wtime();
 	matMultiply(A, B, C, N);
