@@ -128,8 +128,8 @@ int main(int argc, char *argv[]) {
          // Dealing with fail memory allocation
     	if(!X || !tmp)
     	{ 
-           if(!X) free(X);
-	   if(!tmp) free(tmp);
+           if(X) free(X);
+	   if(tmp) free(tmp);
            return (EXIT_FAILURE);
     	}
 
