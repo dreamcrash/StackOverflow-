@@ -22,6 +22,11 @@ Note: Regarding quick sort the algorithm needs some tweak to insure O(n log(n)) 
 #include<stdio.h>
 #include<stdlib.h>
  
+/**
+The AVL code was adapted from https://www.geeksforgeeks.org/avl-tree-set-1-insertion/
+
+**/ 
+
 struct Node{
     int key;
     struct Node *left;
