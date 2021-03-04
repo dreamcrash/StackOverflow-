@@ -98,8 +98,6 @@
 
 package Multithreading_git.FindPrimeNumbers;
 
-import AAAAAAAAAAA.IntegerNumberGenerator;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
