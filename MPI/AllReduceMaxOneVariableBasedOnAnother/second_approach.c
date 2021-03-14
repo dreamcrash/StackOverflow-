@@ -35,24 +35,13 @@ void max_struct(void *in, void *inout, int *len, MPI_Datatype *type){
 
 void defineStruct(MPI_Datatype *tstype) {
     const int count = 2;
-    int          blocklens[count];
-    MPI_Datatype types[count];
-    MPI_Aint     disps[count];
-
-    for (int i=0; i < count; i++) {
-        types[i] = MPI_DOUBLE;
-        blocklens[i] = 1;
-    }
-
-    disps[0] = offsetof(S,a);
-    disps[1] = offsetof(S,b);
+    int          blocklens[count] = {1, 1};
+    MPI_Datatype types[count] = {MPI_DOUBLE, MPI_DOUBLE};
+    MPI_Aint     disps[count] = {offsetof(S,a), offsetof(S,b)};
 
     MPI_Type_create_struct(count, blocklens, disps, types, tstype);
     MPI_Type_commit(tstype);
 }
-
-
-
 
 int main(int argc,char *argv[]){
     MPI_Init(NULL,NULL); // Initialize the MPI environment
