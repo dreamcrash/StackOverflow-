@@ -23,8 +23,6 @@ int main(int argc, char** argv)
    omp_set_dynamic(0);     // Explicitly disable dynamic teams
    omp_set_num_threads(total_threads); 
 
-
- 
    double begin = omp_get_wtime(); 
    #pragma omp parallel
    {
@@ -58,24 +56,18 @@ int main(int argc, char** argv)
        #pragma omp master
        #pragma omp atomic write
         max = 0;
-        // We do max = 0 before the  #pragma omp for to
-        // take advantage of the fact that it has an implicitly 
-        // barrier to avoid once again race-conditions in the 
-        // update of the max variable during the reduction. 
-        #pragma omp for
-        for (int i = 1; i < n-1; i++)
-            for (int j = 1; j < n-1; j++)
-                w_new[i][j]=(float)((w[i+1][j]+w[i-1][j]+w[i][j+1]+w[i][j-1])/4);
+       #pragma omp barrier 
        
         #pragma omp for reduction(max:max)
         for (int i = 1; i < n-1; i++){
            for (int j = 1; j < n-1; j++){
+              w_new[i][j]=(float)((w[i+1][j]+w[i-1][j]+w[i][j+1]+w[i][j-1])/4);
               if (max < fabs(w_new[i][j]-w[i][j]))
-                    max = fabs(w_new[i][j]-w[i][j]);
+                  max = fabs(w_new[i][j]-w[i][j]);
            }
         }      
           
-        #pragma omp for
+        #pragma omp for nowait
         for (int i = 0; i < n; i++)
             for (int j = 0; j < n; j++)
                w[i][j]=w_new[i][j];
