@@ -64,7 +64,6 @@ int partition(int * a, int p, int r)
     int lt_n = 0;
     int gt_n = 0;
 
-    #pragma omp parallel for
     for(i = p; i < r; i++){
         if(a[i] < a[r]){
             lt[lt_n++] = a[i];
@@ -92,15 +91,10 @@ void quicksort(int * a, int p, int r)
 
     if(p < r){ 
         div = partition(a, p, r); 
-	#pragma omp parallel
-        {   
-            #pragma omp single
-	    #pragma omp task shared(a) 
-            quicksort(a, p, div - 1); 
-	    #pragma omp task shared(a)
-            quicksort(a, div + 1, r); 
-
-        }
+	#pragma omp task shared(a) if(r - p > TASK_SIZE)
+        quicksort(a, p, div - 1); 
+	#pragma omp task shared(a) if(r - p > TASK_SIZE)
+        quicksort(a, div + 1, r); 
     }
 }
 
