@@ -12,13 +12,17 @@ MAPPER_NAME=$2
 IDP_NAME=$3
 IDP_ALIAS=$4
 ROLE_NAME=$5
+
+set -e
+set -u -o pipefail
+
 if [[ $# -ne 5 ]]; then
-	echo "Wrong number of parameters"
-	echo "Usage: $0 <realm_name> <mapper_name> <idp_name> <idp_alias> <role_name>"
+	echo "Wrong number of parameters" >&2
+	echo "Usage: $0 <realm_name> <mapper_name> <idp_name> <idp_alias> <role_name> " >&2
 	exit 1
 fi
 
-./kcadm.sh create identity-provider/instances/$IDP_NAME/mappers \ 
+$SCRIPT_DIR/kcadm.sh create identity-provider/instances/$IDP_NAME/mappers \ 
           -r $REALM_NAME \
           -s name=$MAPPER_NAME \
           -s identityProviderAlias=$IDP_ALIAS \ 
