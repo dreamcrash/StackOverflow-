@@ -8,7 +8,7 @@ REALM_NAME=$4
 GROUP_NAME=$5
 
 set -e
-set -u -o pipeline
+set -u -o pipefail
 
 if [[ $# -ne 5 ]]; then 
         echo "Wrong number of parameters" >&2
