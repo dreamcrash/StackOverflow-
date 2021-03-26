@@ -7,9 +7,9 @@ ADMIN_PASSWORD=$3
 REALM_NAME=$4
 GROUP_NAME=$5
 
-if [[ $# -ne 5 ]]; then
-        echo "Wrong number of parameters"
-    	echo "Usage: $0 <Keycloak Host> <Admin User Name> <Admin Password> <Realm Name> <Group Name>"
+if [[ $# -ne 5 ]]; then 
+        echo "Wrong number of parameters" >&2
+    	echo "Usage: $0 <Keycloak Host> <Admin User Name> <Admin Password> <Realm Name> <Group Name>" >&2
         exit 1
 fi
 

@@ -3,8 +3,8 @@ KEYCLOAK_HOST=$1
 TOKEN="$2"
 
 if [[ $# -ne 2 ]]; then
-   	echo "Wrong number of parameters"
-   	echo "Usage: $0 <Keycloak Host> <Token>"
+   	echo "Wrong number of parameters" >&2
+   	echo "Usage: $0 <Keycloak Host> <Token>" >&2
         exit 1
 fi
 
