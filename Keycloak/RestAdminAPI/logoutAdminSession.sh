@@ -2,6 +2,9 @@
 KEYCLOAK_HOST=$1
 TOKEN="$2"
 
+set -e
+set -u -o pipeline
+
 if [[ $# -ne 2 ]]; then
    	echo "Wrong number of parameters" >&2
    	echo "Usage: $0 <Keycloak Host> <Token>" >&2

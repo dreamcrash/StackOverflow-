@@ -7,6 +7,9 @@ ADMIN_PASSWORD=$3
 REALM_NAME=$4
 GROUP_NAME=$5
 
+set -e
+set -u -o pipeline
+
 if [[ $# -ne 5 ]]; then 
         echo "Wrong number of parameters" >&2
     	echo "Usage: $0 <Keycloak Host> <Admin User Name> <Admin Password> <Realm Name> <Group Name>" >&2
