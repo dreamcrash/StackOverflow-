@@ -1,5 +1,6 @@
 /**
  * Original Question : https://stackoverflow.com/questions/66834232/
+ *  -> Duplicated https://stackoverflow.com/questions/4040001
  *
  * This is probably already asked, but it is a little difficult for me to understand.
  * I created a for loop to add random integers into my array, but when the integer is already in the array,
@@ -20,6 +21,7 @@ public class GeneratingRandomValuesWithoutDuplicates {
     public static void main(String[] args) {
         System.out.println(strategy1());
         System.out.println(strategy2());
+        System.out.println(Arrays.toString(strategy3()));
     }
 
     /**
@@ -58,5 +60,16 @@ public class GeneratingRandomValuesWithoutDuplicates {
                 .collect(Collectors.toList());
         Collections.shuffle(collect);
         return collect;
+    }
+
+    public static int[] strategy3(){
+        Random r = new Random();
+        int randomNumberOrigin = 0;
+        int randomNumberBound = 10;
+        int size = 5;
+        return r.ints(randomNumberOrigin, randomNumberBound)
+                .distinct()
+                .limit(size)
+                .toArray();
     }
 }
