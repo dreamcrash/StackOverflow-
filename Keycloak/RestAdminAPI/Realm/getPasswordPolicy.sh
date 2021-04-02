@@ -1,10 +1,10 @@
 # Original Question: https://stackoverflow.com/questions/64929487
  
 #!/bin/bash
-KEYCLOAK_HOST=$1
-ADMIN_NAME=$2
-ADMIN_PASSWORD=$3
-REALM_NAME=$4
+KEYCLOAK_HOST="$1"
+ADMIN_NAME="$2"
+ADMIN_PASSWORD="$3"
+REALM_NAME="$4"
 
 set -e 
 set -u -o pipefail

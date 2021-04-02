@@ -1,5 +1,5 @@
 #!/bin/bash
-KEYCLOAK_HOST=$1
+KEYCLOAK_HOST="$1"
 TOKEN="$2"
 
 set -e

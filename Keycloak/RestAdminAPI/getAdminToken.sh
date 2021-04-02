@@ -1,7 +1,7 @@
 #!/bin/bash
-KEYCLOAK_HOST=$1
-ADMIN_NAME=$2
-ADMIN_PASSWORD=$3
+KEYCLOAK_HOST="$1"
+ADMIN_NAME="$2"
+ADMIN_PASSWORD="$3"
 
 set -e
 set -u -o pipefail
