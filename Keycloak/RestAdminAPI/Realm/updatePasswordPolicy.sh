@@ -1,4 +1,6 @@
-# Original Question: https://stackoverflow.com/questions/64929487
+# Original Question: 
+# - https://stackoverflow.com/questions/65003545
+# - https://stackoverflow.com/questions/64929487
  
 #!/bin/bash
 KEYCLOAK_HOST="$1"
