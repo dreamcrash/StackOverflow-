@@ -14,7 +14,7 @@ SCRIPT_DIR="$(dirname "$0")"
 
 if [[ $# -ne 5 ]]; then
         echo "Wrong number of parameters" >&2
-    	echo "Usage: $0 <Keycloak Host> <Admin User Name> <Admin Password> <Realm Name> <USERNAME>" >&2
+    	echo "Usage: $0 <Keycloak Host> <Admin User Name> <Admin Password> <Realm Name> <Username>" >&2
         exit 1
 fi
 
