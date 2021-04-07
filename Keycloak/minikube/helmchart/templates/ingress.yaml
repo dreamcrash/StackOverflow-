@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: keycloak
+spec:
+  tls:
+    - hosts:
+      - keycloak-sprint01.demo
+  rules:
+  - host: keycloak-sprint01.demo
+    http:
+      paths:
+      - backend:
+          serviceName: keycloak
+          servicePort: 8080

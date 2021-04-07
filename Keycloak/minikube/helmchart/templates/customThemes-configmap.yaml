@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: customthemes-configmap
+binaryData:
+  custom_theme.tar: |-
+    {{ .Files.Get "custom_theme.tar" | b64enc}}

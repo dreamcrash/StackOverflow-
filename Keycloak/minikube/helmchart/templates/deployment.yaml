@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keycloak
+  namespace: default
+  labels:
+    app: keycloak
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keycloak
+  template:
+    metadata:
+      labels:
+        app: keycloak
+    spec:
+      containers:
+      - name: keycloak
+        image: quay.io/keycloak/keycloak:10.0.1
+        env:
+        - name: KEYCLOAK_USER
+          value: "admin"
+        - name: KEYCLOAK_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: keycloak-password
+              key: password
+        - name: PROXY_ADDRESS_FORWARDING
+          value: "true"
+        - name: DB_VENDOR
+          value: "h2"
+        - name: JAVA_TOOL_OPTIONS
+          value: -Dkeycloak.profile.feature.scripts=enabled
+        ports:
+        - name: http
+          containerPort: 8080
+        - name: https
+          containerPort: 8443
+        readinessProbe:
+          httpGet:
+            path: /auth/realms/master
+            port: 8080
+        volumeMounts:
+        - mountPath: /opt/jboss/keycloak/themes/my_custom_theme
+          name: shared-volume            
+          
+      initContainers:
+        - name: init-customtheme
+          image: busybox:1.28
+          command: ['sh', '-c', 'cp -rL /CustomTheme/custom_theme.tar /shared && cd /shared/ && tar -xvf custom_theme.tar && rm -rf custom_theme.tar']
+          volumeMounts:
+          - mountPath: /shared
+            name: shared-volume          
+          - mountPath: /CustomTheme
+            name: theme-volume
+                   
+      volumes:
+      - name: shared-volume
+        emptyDir: {}
+      - name: theme-volume
+        configMap:
+          name: customthemes-configmap 
