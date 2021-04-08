@@ -12,9 +12,4 @@ if [[ $# -ne 3 ]]; then
         exit 1
 fi
 
-curl -k -sS	--request POST \
-  		--url http://$KEYCLOAK_HOST/auth/realms/master/protocol/openid-connect/token \
-  		--data client_id=admin-cli \
-  		--data username=$ADMIN_NAME \
-  		--data password=$ADMIN_PASSWORD \
-  		--data grant_type=password
+sh Token/getTokenGrantTypePassword.sh $KEYCLOAK_HOST "master" "admin-cli" $ADMIN_NAME $ADMIN_PASSWORD
