@@ -24,7 +24,7 @@ ACCESS_TOKEN=$(echo $ADMIN_TOKEN | jq -r .access_token)
 CLIENT=$(sh $SCRIPT_DIR/getClient.sh "$KEYCLOAK_HOST" "$ADMIN_NAME" "$ADMIN_PASSWORD" "$REALM_NAME" "$CLIENT_ID")
 
 ID=$(echo $CLIENT | jq -r .id)
-curl -k -sS	-X GET http://$KEYCLOAK_HOST/auth/admin/realms/$REALM_NAME/clients/$ID/client-secret \
+curl -k -sS	-X GET "http://$KEYCLOAK_HOST/auth/admin/realms/$REALM_NAME/clients/$ID/client-secret" \
 		-H "Content-Type: application/json" \
 		-H "Authorization: Bearer $ACCESS_TOKEN"
 

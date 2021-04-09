@@ -32,7 +32,7 @@ USERNAME=$(sh $SCRIPT_DIR/getUser.sh $KEYCLOAK_HOST $ADMIN_NAME $ADMIN_PASSWORD 
 
 USER_ID=$(echo $USERNAME | jq -r .id)
 
-curl -k -sS -X PUT http://$KEYCLOAK_HOST/auth/admin/realms/$REALM_NAME/users/$USER_ID \
+curl -k -sS -X PUT "http://$KEYCLOAK_HOST/auth/admin/realms/$REALM_NAME/users/$USER_ID" \
         -H "Content-Type: application/json" \
         -H "Authorization: bearer $ACCESS_TOKEN" \
         -d "{\"emailVerified\":${EMAIL_VERIFIED}}"

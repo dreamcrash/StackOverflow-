@@ -21,7 +21,7 @@ ADMIN_TOKEN=$(sh $SCRIPT_DIR/../getAdminToken.sh "$KEYCLOAK_HOST" "$ADMIN_NAME" 
 ACCESS_TOKEN=$(echo $ADMIN_TOKEN | jq -r .access_token)
 
 
-curl -k -sS 	-X GET http://$KEYCLOAK_HOST/auth/admin/realms/$REALM_NAME \
+curl -k -sS 	-X GET "http://$KEYCLOAK_HOST/auth/admin/realms/$REALM_NAME" \
 		-H "Content-Type: application/json" \
 		-H "Authorization: Bearer $ACCESS_TOKEN"
 

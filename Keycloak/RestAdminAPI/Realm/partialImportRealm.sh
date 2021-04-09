@@ -21,7 +21,7 @@ fi
 ADMIN_TOKEN=$(sh $SCRIPT_DIR/../getAdminToken.sh "$KEYCLOAK_HOST" "$ADMIN_NAME" "$ADMIN_PASSWORD")
 ACCESS_TOKEN=$(echo $ADMIN_TOKEN | jq -r .access_token)
 
-curl -k -sS 	-X POST http://$KEYCLOAK_HOST/auth/admin/realms/$REALM_NAME/partialImport \
+curl -k -sS 	-X POST "http://$KEYCLOAK_HOST/auth/admin/realms/$REALM_NAME/partialImport" \
 		-H "Content-Type: application/json" \
 		-H "Authorization: Bearer $ACCESS_TOKEN" \
 		-d $JSON_REALM_TO_IMPORT 

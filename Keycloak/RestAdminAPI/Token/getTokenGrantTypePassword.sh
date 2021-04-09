@@ -18,7 +18,7 @@ if [[ $# -ne 5 ]]; then
 fi
 
 curl -k -sS	--request POST \
-  		--url http://$KEYCLOAK_HOST/auth/realms/$REALM_NAME/protocol/openid-connect/token \
+  		--url "http://$KEYCLOAK_HOST/auth/realms/$REALM_NAME/protocol/openid-connect/token" \
   		--data client_id=$CLIENT_ID \
   		--data username=$USERNAME \
   		--data password=$PASSWORD \

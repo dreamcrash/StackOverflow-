@@ -26,7 +26,7 @@ ACCESS_TOKEN=$(echo $ADMIN_TOKEN | jq -r .access_token)
 JSON_DATA='{"passwordPolicy":"'${PASSWORD_POLICY}'"}'
 echo "$JSON_DATA"
 
-curl -k -sS 	-X PUT http://$KEYCLOAK_HOST/auth/admin/realms/$REALM_NAME \
+curl -k -sS 	-X PUT "http://$KEYCLOAK_HOST/auth/admin/realms/$REALM_NAME" \
 		-H "Content-Type: application/json" \
 		-H "Authorization: Bearer $ACCESS_TOKEN" \
 		-d "$JSON_DATA"
