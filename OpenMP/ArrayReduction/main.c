@@ -2,12 +2,9 @@
 https://stackoverflow.com/questions/20413995
 **/
 
-#include <iostream>
 #include <stdio.h>
 #include <time.h>
 #include <omp.h>
-using namespace std;
-
 int main ()
 {
   int A [] = {84, 30, 95, 94, 36, 73, 52, 23, 2, 13};
