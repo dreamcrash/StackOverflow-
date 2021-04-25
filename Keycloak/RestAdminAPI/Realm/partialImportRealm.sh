@@ -4,7 +4,7 @@
 set -e 
 set -u -o pipefail
 
-if [[ $# -ne 6 ]]; then
+if [[ $# -ne 5 ]]; then
         echo "Wrong number of parameters" >&2
     	echo "Usage: $0 <Keycloak Host> <Admin User Name> <Admin Password> <Realm Name> <Json Realm to import>" >&2
         exit 1
