@@ -1,7 +1,4 @@
 #!/bin/bash
-KEYCLOAK_HOST="$1"
-TOKEN="$2"
-
 set -e
 set -u -o pipefail
 
@@ -10,6 +7,9 @@ if [[ $# -ne 2 ]]; then
    	echo "Usage: $0 <Keycloak Host> <Token>" >&2
         exit 1
 fi
+
+KEYCLOAK_HOST="$1"
+TOKEN="$2"
 
 ACCESS_TOKEN=$(echo $TOKEN | jq -r .access_token)
 SESSION_STATE=$(echo $TOKEN | jq -r .session_state)

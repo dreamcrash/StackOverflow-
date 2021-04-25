@@ -1,6 +1,16 @@
 # Original Question: https://stackoverflow.com/questions/65215817
  
 #!/bin/bash
+set -e 
+set -u -o pipefail
+
+if [[ $# -ne 6 ]]; then
+        echo "Wrong number of parameters" >&2
+    	echo "Usage: $0 <Keycloak Host> <Admin User Name> <Admin Password> <Realm Name> <Export Clients> <Export groups and Roles>" >&2
+        exit 1
+fi
+
+SCRIPT_DIR="$(dirname "$0")"
 KEYCLOAK_HOST="$1"
 ADMIN_NAME="$2"
 ADMIN_PASSWORD="$3"
@@ -8,16 +18,7 @@ REALM_NAME="$4"
 EXPORT_CLIENTS="$5" # true or false
 EXPORT_GROUP_AND_ROLES="$6" # true or false
 
-set -e 
-set -u -o pipefail
 
-SCRIPT_DIR="$(dirname "$0")"
-
-if [[ $# -ne 6 ]]; then
-        echo "Wrong number of parameters" >&2
-    	echo "Usage: $0 <Keycloak Host> <Admin User Name> <Admin Password> <Realm Name> <Export Clients> <Export groups and Roles>" >&2
-        exit 1
-fi
 
 if [[ "$EXPORT_CLIENTS" != "true" && "$EXPORT_CLIENTS" != "false" ]]; then
 	echo "The exportClients  must be either \"true\" or \"false\"" >&2
