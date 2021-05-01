@@ -26,6 +26,12 @@ CLIENT=$(curl -k -sS	-X GET "http://$KEYCLOAK_HOST/auth/admin/realms/$REALM_NAME
 			-H "Content-Type: application/json" \
 			-H "Authorization: Bearer $ACCESS_TOKEN")
 
-echo $CLIENT | jq -r .[0]
+RESULT=$(echo $CLIENT | jq type)
+if [[ $RESULT == "array" ]];
+then
+	echo $CLIENT | jq -r .[0]
+else
+	echo $CLIENT
+fi
 
 sh $SCRIPT_DIR/../logoutAdminSession.sh "$KEYCLOAK_HOST" "$ADMIN_TOKEN"
