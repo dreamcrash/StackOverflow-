@@ -1,0 +1,20 @@
+/**
+Original Question : https://stackoverflow.com/questions/65520012
+
+How to set custom theme for master realm in keycloak?
+**/
+
+#!bin/bash
+set -e
+set -u -o pipefail
+
+if [[ $# -ne 2 ]]; then
+	echo "Wrong number of parameters" >&2
+	echo "Usage: $0 <realm_name> <loginTheme" >&2
+	exit 1
+fi
+
+REALM_NAME="$1"
+THEME="$2"
+
+$SCRIPT_DIR/kcadm update realms/$REALM_NAME -s "loginTheme=<$THEME>"
