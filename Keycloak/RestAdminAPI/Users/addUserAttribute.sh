@@ -28,7 +28,6 @@ USER_ID=$(echo $USERNAME | jq -r .id)
 NEW_ATTRIBUTES=$(echo $USERNAME | jq -r --arg ATTRIBUTES "$ATTRIBUTES" '.attributes = .attributes + '$ATTRIBUTES'' | jq -r .attributes)
 
 JSON_DATA="{\"attributes\":${NEW_ATTRIBUTES}}"
-echo $JSON_DATA
 curl -k -sS 	-X PUT "http://$KEYCLOAK_HOST/auth/admin/realms/$REALM_NAME/users/$USER_ID" \
 		-H "Content-Type: application/json" \
 		-H "Authorization: Bearer $ACCESS_TOKEN" \
