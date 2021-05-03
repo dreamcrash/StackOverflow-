@@ -25,10 +25,7 @@ ACCESS_TOKEN=$(echo $ADMIN_TOKEN | jq -r .access_token)
 
 USERNAME=$(sh $SCRIPT_DIR/getUser.sh $KEYCLOAK_HOST $ADMIN_NAME $ADMIN_PASSWORD $REALM_NAME $USERNAME)
 USER_ID=$(echo $USERNAME | jq -r .id)
-echo $USER_ID
-
 JSON_DATA="{\"attributes\":${ATTRIBUTES}}"
-echo $JSON_DATA
 
 curl -k -sS 	-X PUT "http://$KEYCLOAK_HOST/auth/admin/realms/$REALM_NAME/users/$USER_ID" \
 		-H "Content-Type: application/json" \
