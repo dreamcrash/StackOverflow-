@@ -23,14 +23,15 @@ ATTRIBUTES="$6"
 ADMIN_TOKEN=$(sh $SCRIPT_DIR/../getAdminToken.sh "$KEYCLOAK_HOST" "$ADMIN_NAME" "$ADMIN_PASSWORD")
 ACCESS_TOKEN=$(echo $ADMIN_TOKEN | jq -r .access_token)
 
-USERNAME=$(sh $SCRIPT_DIR/getUser.sh $KEYCLOAK_HOST $ADMIN_NAME $ADMIN_PASSWORD $REALM_NAME $USERNAME)
+USERNAME=$(sh $SCRIPT_DIR/getUserByName.sh $KEYCLOAK_HOST $ADMIN_NAME $ADMIN_PASSWORD $REALM_NAME $USERNAME)
 USER_ID=$(echo $USERNAME | jq -r .id)
-JSON_DATA="{\"attributes\":${ATTRIBUTES}}"
+NEW_ATTRIBUTES=$(echo $USERNAME | jq -r --arg ATTRIBUTES "$ATTRIBUTES" '.attributes = .attributes + '$ATTRIBUTES'' | jq -r .attributes)
 
+JSON_DATA="{\"attributes\":${NEW_ATTRIBUTES}}"
+echo $JSON_DATA
 curl -k -sS 	-X PUT "http://$KEYCLOAK_HOST/auth/admin/realms/$REALM_NAME/users/$USER_ID" \
 		-H "Content-Type: application/json" \
 		-H "Authorization: Bearer $ACCESS_TOKEN" \
 		-d "$JSON_DATA"
-
 
 sh $SCRIPT_DIR/../logoutAdminSession.sh "$KEYCLOAK_HOST" "$ADMIN_TOKEN"
