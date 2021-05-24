@@ -18,6 +18,6 @@ ADMIN_PASSWORD="$3"
 REALM_NAME="$4"
 USERNAME="$5"
 
-USERNAME=$(sh $SCRIPT_DIR/getUserByName.sh $KEYCLOAK_HOST $ADMIN_NAME $ADMIN_PASSWORD $REALM_NAME $USERNAME)
+USER=$(sh $SCRIPT_DIR/getUserByName.sh $KEYCLOAK_HOST $ADMIN_NAME $ADMIN_PASSWORD $REALM_NAME $USERNAME)
 
-echo $USERNAME | jq -r '.[] | select(.username=="user")'
+echo $USER | jq -r ".[] | select(.username==\"$USERNAME\")"
