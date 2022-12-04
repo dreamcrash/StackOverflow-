@@ -21,4 +21,6 @@ curl -k -sS	--request POST \
   		--data client_id=$CLIENT_ID \
   		--data username=$USERNAME \
   		--data password=$PASSWORD \
-  		--data grant_type=password
+  		--data grant_type=password \
+		--data scope=openid
+
